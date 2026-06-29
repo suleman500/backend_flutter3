@@ -12,7 +12,7 @@ const authJwt = require('../helper/jwt');
 
 
 
-route.get('/',productController.ggetAllProduct );
+route.get('/' ,productController.ggetAllProduct)
 
 // بدي اعمل المديل وير بشيك قبل ما اعمل اي تحرك هون 
 route.post('/creat',authJwt,productController.createProduct );

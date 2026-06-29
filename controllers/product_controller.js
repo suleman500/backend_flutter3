@@ -140,6 +140,7 @@ const deleteProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
     try {
+        
        const productId = req.params.id; 
         const storeId = req.user.storeId;
         const prodact= await Product.findById(productId);

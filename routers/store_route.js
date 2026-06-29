@@ -6,11 +6,12 @@ const storeController = require('../controllers/store_controller');
 
 
 
-//route.post('/', storeController.createdStore);
-//route.put('/:id', storeController.updateStore);
+
 route.get('/', storeController.getAllStores);
+route.get('/:id', storeController.getStoreById);
 route.post('/createStore', storeController.createdStore);
 route.put('/updateStore', storeController.updateStore);
+
 //route.post('/test', storeController.testCreateStore);
 
 

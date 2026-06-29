@@ -10,19 +10,21 @@ const createOrder = async (req, res) => {
      
         const orderItem = req.body.items.map(async (item) => {
             const newOrderItem = new OrderItem({
-                Product: item.productId,
+                
+                product: item.productId,
                 quantity: item.quantity
             })
             const savedOrderItem = await newOrderItem.save();
             return savedOrderItem._id;
         });
-     
-          const newOrder = new Order({
+    
+        const newOrder = new Order({
+              
            user: req.body.user,
             address: req.body.address,
             phone: req.body.phone,
             totalPrice: req.body.totalPrice,
-            items: orderItemIds,      
+            items:newOrderItem,      
             status: req.body.status
         })
    const savedOrder = await newOrder.save();
@@ -30,7 +32,8 @@ const createOrder = async (req, res) => {
 
     }
     catch(err) {
-        
+        console.error(' Error:', err.message);
+    res.status(500).json({ success: false, message: err.message });
 
     }
 }

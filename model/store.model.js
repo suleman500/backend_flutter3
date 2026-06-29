@@ -38,7 +38,7 @@ const storeSchema = new Schema({
         unique: true,
     },
 
-    // تقيم
+    // عدد المنتجججات
     productsCount: {
         type: Number,
         default: 0,
@@ -58,7 +58,13 @@ const storeSchema = new Schema({
         default: Date.now,
     },
 
+    status:{
+    type: String,
+    default: "pending"
+}    
+
 });
 
 const storeModel = mongoose.model('Store', storeSchema);
 module.exports = storeModel;
+

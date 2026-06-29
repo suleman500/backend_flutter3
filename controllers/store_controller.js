@@ -32,6 +32,23 @@ try {
 
 
 
+
+const getStoreById = async (req, res) => {
+    try {
+        const storeId = req.params.id;
+        const store = await Store.findById(storeId).populate('vendorId', 'name email');
+        if (!store) {
+            return res.status(404).json({ success: false, message: 'Store not found' });
+        }
+        res.status(200).json({ success: true, store });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+}
+
+
+
+
 const createdStore = async (req, res) => {
 
     try {
@@ -111,7 +128,7 @@ const updateStore = async (req, res) => {
         if (!store) {
             return res.status(404).json({
                 success: false,
-                message: "is "
+                message: "is not Story "
             });
         }
 
@@ -144,7 +161,7 @@ const updateStore = async (req, res) => {
 
 
 
-const getAllStores = async (req, res) => {
+/*const getAllStores = async (req, res) => {
     try {
         let filter = {};
         if (req.query.status) {
@@ -161,13 +178,13 @@ const getAllStores = async (req, res) => {
             message: 'Server Error',
         });
     }
-};
+};*/
 
 
 
 
 
-/*getAllStores = async (req, res) => { 
+const  getAllStores = async (req, res) => { 
 
     try { 
         let filter = {};
@@ -193,5 +210,5 @@ filter={status:req.query.status.split(',')};
  }
 
 
-}*/
-module.exports = { createdStore, getAllStores, updateStore };
+}
+module.exports = { createdStore,getAllStores, updateStore,getStoreById };

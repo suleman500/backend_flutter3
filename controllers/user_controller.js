@@ -27,10 +27,10 @@ const createUser = async (req, res) => {
 
     });
     newUser.save().then((creatUser) => {
-        res.status(201).json(creatUser);
+      return   res.status(201).json(creatUser);
     }
     ).catch((err) => {
-        res.status(400).json({
+     return    res.status(400).json({
             message: err.message
         })
     });
@@ -38,7 +38,7 @@ const createUser = async (req, res) => {
 }
 const getAllUser = async(req, res) => {
     const usersList = await userModel.find().select("-password");
-        res.status(200).json(usersList);
+     return    res.status(200).json(usersList);
 
 }
 const getUser = async (req, res) => {
@@ -49,7 +49,7 @@ const getUser = async (req, res) => {
         });
 
     }
-    res.status(200).json(user);
+    return res.status(200).json(user);
 }
 
 const loggin = async (req, res) => { 
@@ -67,23 +67,21 @@ return res.status(404).json({
         const seceret = process.env.JWT_SECRET;
         const token = jwt.sign(
             {
-                id:userr._id,
                 email: userr.email,
-                role: userr.role,
-                storeId: userr.storeId, 
             },
-            seceret
-        )
+            seceret,
+            {
+                expiresIn: "1w",
+            },
+        );
         return res.status(200).json({
             message: `login success ${userr.name}`,
-            user:  {
                 id: userr._id,
                 name: userr.name,
                 email: userr.email,
                 role: userr.role,
                 storeId: userr.storeId,
-            },
-            token: token
+                token: token
         })
     }
     else {
@@ -109,14 +107,14 @@ const updateUser = async (req, res) => {
                 message: "no user found"
             });
         } else {
-            res.status(200).json({
+             return res.status(200).json({
                 success: true,
                 updateUser,
                 massage: "the user is updated successfully"
             });
         }
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
             message: error.message
         });
